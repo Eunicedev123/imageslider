@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        
+        .slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+       
+        .slider img {
+            width: 100%;
+           
+            flex-shrink: 0;
+            display: block;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        #prevBtn {
+            left: 15px;
+        }
+
+        #nextBtn {
+            right: 15px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <img src="ROSES.jpg" alt="Slide 1">
+            <img src="bluerose.jpg" alt="Slide 2">
+            <img src="greenyellow flowers.jpg" alt="Slide 3">
+            <img src="blue flowers.jpeg" alt="Slide 4">
+            <img src="flowers.jpg" alt="Slide 5">
+
+        </div>
+     
+        <button class="nav-btn" id="prevBtn">&#10094;</button>
+        <button class="nav-btn" id="nextBtn">&#10095;</button>
+    </div>
+
+    <script>
+      
+        const slider = document.getElementById('slider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        let currentIndex = 0;
+        const totalSlides = document.querySelectorAll('.slider img').length;
+
+       
+        function moveToNextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides; 
+            updateSlider();
+        }
+
+       
+        function moveToPrevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides; 
+            updateSlider();
+        }
+
+       
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+    
+        nextBtn.addEventListener('click', moveToNextSlide);
+        prevBtn.addEventListener('click', moveToPrevSlide);
+
+        // Optional: Auto-slide every 3 seconds
+        setInterval(moveToNextSlide, 3000);
+    </script>
+</body>
+</html>
